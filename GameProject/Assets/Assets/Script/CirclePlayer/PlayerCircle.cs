@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCircle : MonoBehaviour
@@ -7,6 +5,8 @@ public class PlayerCircle : MonoBehaviour
     AudioManager _audioManagerScr;
     private GameManager _gameManagerScr;
     [SerializeField] private GameObject _fragmentationeffect;
+
+    
 
     private void Start()
     {
@@ -19,7 +19,8 @@ public class PlayerCircle : MonoBehaviour
         if (other.gameObject.CompareTag("Square"))
         {
             Destroy(other.gameObject);
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            gameObject.SetActive(false);
+            //gameObject.GetComponent<SpriteRenderer>().enabled = false;
             Instantiate(_fragmentationeffect, transform.position, transform.rotation);
             _gameManagerScr.GameOver();
         }
@@ -27,6 +28,7 @@ public class PlayerCircle : MonoBehaviour
         {
             _audioManagerScr.PlaySoundEffect(1);
             Destroy(other.gameObject);
+            _gameManagerScr.ScoreIncrease();
         }
     }
 }
