@@ -9,6 +9,7 @@ TagManager:
   - ScoreCircle
   - Square
   - GameManager
+  - MenuManager
   layers:
   - Default
   - TransparentFX

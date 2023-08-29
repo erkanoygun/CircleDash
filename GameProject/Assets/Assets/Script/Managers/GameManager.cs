@@ -9,27 +9,24 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TMP_Text _scoreText;
     private BackgroundColorManager _colorManagerScr;
-    
-    [SerializeField] private GameObject _gameOverPanelGO;
+    private MenuManager _menuManagerScr;
     public bool isPausGame = false;
+    public bool isSoundActive;
 
-    public int _score;
+    public int score;
+    public int bestScore;
     void Start()
     {
+        _menuManagerScr = GameObject.FindWithTag("MenuManager").GetComponent<MenuManager>();
         _colorManagerScr = Camera.main.GetComponent<BackgroundColorManager>();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        isSoundActive = GameDataManager.Instance._isSoundEffect == 1 ? true : false;
     }
 
     public void GameOver()
     {
         isPausGame = true;
         StartCoroutine(GameOverEnumerator());
-        
     }
 
     public void ReStartGame()
@@ -41,15 +38,16 @@ public class GameManager : MonoBehaviour
     IEnumerator GameOverEnumerator()
     {
         yield return new WaitForSeconds(1.2f);
-        _gameOverPanelGO.SetActive(true);
-        Time.timeScale = 0;
+        _menuManagerScr.GameOver();
     }
 
     public void ScoreIncrease()
     {
-        _score++;
-        _scoreText.text = _score.ToString();
-        switch (_score)
+        score++;
+        if(score > GameDataManager.Instance.bestScore)
+            PlayerPrefs.SetInt(nameof(GameDataManager.Instance.bestScore), score);
+        _scoreText.text = score.ToString();
+        switch (score)
         {
             case 8:
                _colorManagerScr.ChangeColorIndex();

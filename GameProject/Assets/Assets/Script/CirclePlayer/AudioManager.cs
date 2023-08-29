@@ -6,15 +6,17 @@ public class AudioManager : MonoBehaviour
 {
     AudioSource _audioSource;
     public AudioClip[] clips;
+    GameManager _gameManagerScr;
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
+        _gameManagerScr = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
     }
 
     
     public void PlaySoundEffect(int index)
     {
-        //_audioSource.clip = clip;
-        _audioSource.PlayOneShot(clips[index]);
+        if(_gameManagerScr.isSoundActive)
+            _audioSource.PlayOneShot(clips[index]);
     }
 }
