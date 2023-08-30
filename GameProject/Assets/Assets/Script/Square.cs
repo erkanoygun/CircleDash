@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Black Square Component
 public class Square : MonoBehaviour
 {
     private Rigidbody2D _rb;
@@ -12,6 +13,7 @@ public class Square : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         ForceRB();
+        Destroy(gameObject, 1.5f);
     }
 
     private void ForceRB()

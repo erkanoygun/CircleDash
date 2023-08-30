@@ -4,7 +4,7 @@ public class PlayerCircle : MonoBehaviour
 {
     AudioManager _audioManagerScr;
     private GameManager _gameManagerScr;
-    [SerializeField] private GameObject _fragmentationeffect;
+    [SerializeField] private GameObject _fragmentationeffect, _fragmentationeffect2;
 
     
 
@@ -20,15 +20,21 @@ public class PlayerCircle : MonoBehaviour
         {
             Destroy(other.gameObject);
             gameObject.SetActive(false);
-            //gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            Instantiate(_fragmentationeffect, transform.position, transform.rotation);
+            _audioManagerScr.PlaySoundEffect(2);
+            PlayParticleEffect(_fragmentationeffect, transform.position, transform.rotation);
             _gameManagerScr.GameOver();
         }
-        if (other.gameObject.CompareTag("ScoreCircle"))
+        if (other.gameObject.CompareTag("ScoreSquare"))
         {
             _audioManagerScr.PlaySoundEffect(1);
+            PlayParticleEffect(_fragmentationeffect2, other.transform.position, other.transform.rotation);
             Destroy(other.gameObject);
             _gameManagerScr.ScoreIncrease();
         }
+    }
+
+    private void PlayParticleEffect(GameObject particleeffect, Vector3 pos, Quaternion rot)
+    {
+        Destroy(Instantiate(particleeffect, pos, rot), 1f);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CircleController : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class CircleController : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
 
-            if (touch.phase == TouchPhase.Began)
+            if (touch.phase == TouchPhase.Began && !EventSystem.current.IsPointerOverGameObject(touch.fingerId))
             {
                 if(!_gameManagerScr.isPausGame)
                     _audioManagerScr.PlaySoundEffect(0);
@@ -31,6 +32,5 @@ public class CircleController : MonoBehaviour
 
         transform.rotation *= Quaternion.Euler(0f, 0f, (!_isRight ? rotationSpeed : -rotationSpeed) * Time.deltaTime);
     }
-
     
 }
