@@ -5,7 +5,6 @@ public class PlayerCircle : MonoBehaviour
     AudioManager _audioManagerScr;
     private GameManager _gameManagerScr;
     [SerializeField] private GameObject _fragmentationeffect, _fragmentationeffect2;
-
     
 
     private void Start()

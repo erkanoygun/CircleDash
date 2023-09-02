@@ -11,6 +11,8 @@ public class CircleController : MonoBehaviour
     AudioManager _audioManagerScr;
     private GameManager _gameManagerScr;
 
+    private TrailRenderer _trailRnd;
+
     private void Start()
     {
         _audioManagerScr = GetComponent<AudioManager>();
@@ -24,6 +26,7 @@ public class CircleController : MonoBehaviour
 
             if (touch.phase == TouchPhase.Began && !EventSystem.current.IsPointerOverGameObject(touch.fingerId))
             {
+                StartCoroutine(DashEffectEnumerator());
                 if(!_gameManagerScr.isPausGame)
                     _audioManagerScr.PlaySoundEffect(0);
                 _isRight = !_isRight;
@@ -31,6 +34,11 @@ public class CircleController : MonoBehaviour
         }
 
         transform.rotation *= Quaternion.Euler(0f, 0f, (!_isRight ? rotationSpeed : -rotationSpeed) * Time.deltaTime);
+    }
+
+    IEnumerator DashEffectEnumerator()
+    {
+        yield return new WaitForSeconds(0.1f);
     }
     
 }

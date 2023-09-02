@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    private float _spawnTime = 1.3f;
     [SerializeField] private GameObject _squareGO;
     [SerializeField] private GameObject _greenSquareGO;
     [SerializeField] private GameObject _greenSquareSpawnPosGO1, _greenSquareSpawnPosGO2;
+    private GameManager _gameManagerScr;
     Collider2D _greenSquareSpawnPosCol;
     [SerializeField] private Transform _mainCircleTRN;
     void Start()
     {
+        _gameManagerScr = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         StartCoroutine(BlackSquareSpawnSquare());
         StartCoroutine(GreenSquareSpawnEnumerator());
+    }
+
+    private void Update()
+    {
+        if(_gameManagerScr.score >= 20 && _spawnTime == 1.3f)
+        {
+            _spawnTime = 0.9f;
+        }
     }
 
 
@@ -20,9 +31,11 @@ public class Spawner : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1.3f);
+            int val = Random.Range(0, 100);
+            yield return new WaitForSeconds((val <= 90 ? _spawnTime : 0.3f));
             GameObject _square = Instantiate(_squareGO, _mainCircleTRN.position, _mainCircleTRN.rotation);
             _square.gameObject.transform.SetParent(gameObject.transform);
+
         }
     }
 
@@ -30,7 +43,7 @@ public class Spawner : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(3f, 5f));
+            yield return new WaitForSeconds(Random.Range(3f, 4f));
             GreenSquareSpawn();
         }
     }

@@ -6,7 +6,7 @@ public class GameDataManager : MonoBehaviour
 {
     public static GameDataManager Instance;
 
-    public int _isSoundEffect = 1;
+    public int _isSoundEffect;
     public int score;
     public int bestScore;
 
@@ -26,7 +26,9 @@ public class GameDataManager : MonoBehaviour
     
     public void GetGameData()
     {
-        _isSoundEffect = PlayerPrefs.GetInt(nameof(_isSoundEffect));
+        // When the game starts for the first time, we make sure that the sound effect setting is on.
+        _isSoundEffect = PlayerPrefs.HasKey(nameof(_isSoundEffect)) == false ? 1 : PlayerPrefs.GetInt(nameof(_isSoundEffect));
+        
         score = PlayerPrefs.GetInt(nameof(score));
         bestScore = PlayerPrefs.GetInt(nameof(bestScore));
     }
