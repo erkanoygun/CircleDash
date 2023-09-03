@@ -20,3 +20,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ### Unity Version
 **2021.3.22.f1**
+
+### Game Video
+
+https://github.com/erkanoygun/CircleDash/assets/56897548/662b11cd-683c-4d3e-95f5-a86bce3d3a6c
+
